@@ -1,0 +1,56 @@
+0) API reference
+https://github.com/mbostock/d3/wiki/API-Reference
+
+1) D3 visualization Book site
+http://alignedleft.com/tutorials/d3
+
+2) Link to D3
+- copy and paste contents of
+https://raw.githubusercontent.com/mbostock/d3/master/d3.min.js
+into the javascript console
+
+- hit enter, you should see 'true' returned in the console
+
+3) REPL
+Read, Evaluate, Print, Loop
+
+4) HTML DOM
+One important objective for the Document Object Model is to provide a standard programming interface that can be used in a wide variety of environments and applications.
+
+5) DOM in JS
+- the variable "document" in global scope of js represents the DOM
+
+6) Browser in JS
+- the variable "window" in global scope of js represents the browser window
+
+7) Selecting elements in D3
+- Based on native js selections methods on the DOM
+- native js selector methods exposed by the document variable...
+- getElementById, getElementByClassName, querySelector, etc...
+- D3 selector is based on the native js querySelector (input is any well formed CSS selector)
+- D3 selector very similar to jQuery selector
+
+8) Native selectors
+- They return raw DOM nodes
+- NOT a D3 object, (or JQuery object if you were using jQuery)
+- Want to use D3 objects to take advatage if chaining methods
+
+9) D3 selector
+- d3.select("css selector here")
+- returns a D3 object (like an Array/Collection just like jQuery selection)
+
+10) Can change css styles
+- d3.select("css selector").style("css style")
+- a getter and setter depending on how many arguments it was called with
+
+11) Chaining
+- Most D3 methods return the D3 object that they were called against
+- So, you can call another method on the returned (aka original) object again
+ 
+12) d3.select vs d3.selectAll
+- select return 1st object that matches selection
+- selectAll returns all objects that match selection
+
+13) d3.attr
+- get/set attributes of html dom elements that are represented as d3 objects
+
