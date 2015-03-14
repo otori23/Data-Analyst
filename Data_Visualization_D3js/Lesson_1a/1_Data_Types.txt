@@ -1,0 +1,28 @@
+Aside from Intro to data science class
+
+1) Data types 
+- Three basic types, numeric, categorical(ordinal), time series
+
+2) Numerical Data (carry mathematical meaning)
+- aka Quantitative data
+- Two types 
+- continuous (measurement, e.g., height, weight, take any value within a range, real numbers) and 
+- discrete (counts, e.g., # home runs or hits, whole numbers, integers)
+
+3) Categorical Data
+- Represent characteristics
+- e.g. position on team, which tean, hometown, handedness
+- can take on numerical values, but the don't have mathematical meaning, i.e...
+- can't perform mathematical operations on them add, take average, etc
+
+4) Ordinal Data (Qualitative)
+- in some sense a mix of Numerical and Categorical data
+- Catergories with some order or ranking and can be compared i.e. ...
+- rate a movie from 1(bad) - 5(good) 
+- For plotting purposes ordinal data is treated as Categorical data
+
+5) Time-series data
+- Simply a collection of obervations obtained through repeated measurements over time
+- Data collected via repeated measurements over time
+- Data collected at regular intervals over a preiod of time
+- Like numerical data with ordering based on time it was recorded

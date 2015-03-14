@@ -1,0 +1,278 @@
+1) What is Data Visualization
+- Conveying a story/idea as efficiently as possible
+- Use to explore patterns in your data and convey any results
+- See book by Edward Tufte: The Visual Display of Quantitative Information
+- How best to visually represent data using things like, color, size, shape to convey some information or idea to an audience
+- Mapping values to visuals
+- Cole Nussbaumer, http://www.storytellingwithdata.com/
+- Turning numbers into pictures and stories. Humans process pictures way faster than others
+- Really decreseses congnative load
+- Exploratory (make connections; look at data in unbiased way) vs Explanatory (conveying idea to others)
+
+2) Qualities of Good visualizations
+- Draw users attention to important information
+- Is the central part of story being told
+
+3) Some example viusalization sites
+https://twitter.com/nytgraphics
+http://www.smallmeans.com/new-york-times-infographics/
+http://www.smallmeans.com/new-york-times-infographics/
+http://infosthetics.com/
+http://vizwiz.blogspot.com/ - Andy Friebel from facebook; his blog
+
+Alberto Cairo's Three Steps to Become a Visualization Designer by Andy Kriebel.
+- http://vizwiz.blogspot.com/2013/01/alberto-cairo-three-steps-to-become.html
+- Final iteration is interactive "slope graph" (which he prefferd of a scatter plot)
+- Visualization seem to be done and hosted by tableau
+
+4) Slope Graphs
+- Typically, I find myself using slopegraphs to compare two points in time
+(i.e. value of two properties of one individual at a given point in time; repeat for all individuals)
+
+- Slope graphs can also be useful to show comparisons between groups.
+
+- http://www.storytellingwithdata.com/2014/03/more-on-slopegraphs.html
+
+5) Other visualization examples
+- line graph, horizonal bar charts, Cirle maps, Filled Maps, Lollipops, Scatter plots
+
+6) General advice 
+- Your greatest insight is only as good as you ability to communicate it
+- Start with what you already know and build from there, so as an engineer...
+- My need to learn some design language and visual principles, human perception, etc.
+
+7) Are you a Designer vs. Engineer (Software) vs. Storyteller (Communication) 
+- On scale of  1-10, 1-9-1 respectively
+- Hawua is more Storyteller
+
+8) Data visualization from point of view of Data Science
+- Graph of Larger process of data visualization; Also maps nicely to Data Science process as a whole.
+
+  Computer Science	Statistics		Graphic Design		   Infovis
+			and Data mining					   and HCI
+  |--------------| 	|--------------|	|--------------|	|--------------|	
+acquire		parse  filter	      mine     represent     refine	   interact	
+
+   DATA WRANGLING             EDA			    DATA VISUALIZATION
+
+Engineering: steps 1 and 2
+Designer: step 3
+Storytelling: step 4
+
+- You won't traverse the process graph in a linear fashion
+- One step will better inform you on how to handle another, so.... you will iterate
+
+9) Computer Science
+- Data ingestion via web scrapping, log collection, database access
+- Build scalable extract, transform and load (ETL) pipelines
+- Data Munging or Data Wrangling
+
+http://en.wikipedia.org/wiki/Data_wrangling
+10) Statistics and Data mining
+- What is most associated with data science
+- Many people find this the most exciting
+- Includes modeling, data mining, exploratory data analysis (EDA), applying statistical and mathematical theory to discover insights
+
+11) Graphic Design
+- Experiment with ways to present your data in the most visually efficient manner
+
+12) infovis and HCI
+Concerned with how a reader will interact with your visualization
+
+- infovis stands for Information Visualization
+http://en.wikipedia.org/wiki/Information_visualization
+
+- HCI stands for Human-Computer interaction
+http://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction
+
+12) EDA vs Data Visualization
+- EDA is a conversation between you and the data (Exploratory - you trying to understand)
+- Data Visualization is conversation between the data and your audience (Explanatory - prove to someone else)
+
+13) Anscombe's Quartet
+
+The plots were constructed in 1973 by the statistician Francis Anscombe to demonstrate both the importance of graphing data before analyzing it and the effect of outliers on statistical properties.
+
+- MatplotLib (python) and ggplot (R) graphics packages for creating plots, allowing you to pick out plots, trends, and outliers as you analyze the data.
+
+14) Human processing capabilities
+- Sight: like 1250 mpbs ethernet (fastest)
+- Touch: like 125 MB/s USB Key
+- Hearing and smell: 12.2 MB/s harddisk access
+- Taste: Slow calculator
+- awareness is only 0.7% of our total "bandwidth."
+
+15) Data Types
+- Almost anything can be turned into data
+- Hans Roslings work with global health data (https://www.youtube.com/watch?v=jbkSRLYSojo)
+
+Quantitative Data (Numerical, have exact number, has mathematical meaning)
+- life expenctancy
+- income per person (continuous)
+- total population (discrete, i.e. are countable)
+- year
+
+Categorical Data (can be numbers, but carry no mathematical meaning)
+- Nominal (a way of labeling or categorizing the data into groups)
+---   geographical region (countries are grouped into regions)
+- Ordered (same as nominal, but categories are ordered or ranked in some way)
+---   population, in bins (0-10 million, 10 - 100 million, 100-500 million, > 500 million)
+---   class difficulty, beginner, intermediate, advanced
+
+- Each Data type can be encoded visually
+- See 1_Data_Types.txt
+
+16) Visual Encoding
+- mapping Data -> Display elements
+- See Stephen Few's article: encoding_values_in_graph.pdf
+- Planar vs. Retinal variables
+- Planar varialbe, i.e. (x, y) show position in 2D space which is very quick and easy for people to consume
+- what about higher dimensional data???
+- 3D space can be used i.e. (x, y, z) but harder to consume space between points
+- can encode 3rd with other variables, i.e. retinal variables e.g. Size. Color
+- Size (good for ordered data); think small circle vs big circle
+- Color
+- In general retinal variables NOT good for quantitative data
+- E.g. of retinal variables good for Ordered data: size (also length), color hue, orientation (angle), 
+- E.g. of retinal variables good for Nominal data: shape, color sturation (shade), 
+texture (cross-hatch vs dots vs diagonal) 
+- Time: animatied by displaying individual frames in the visualization
+
+17) Hans Rosling visualization
+Variables in visualization and how they are encoded
+
+Data			Display
+life expectancy		position y
+spending per person	position x
+total population	size
+geographical region	color
+time			animation the frames (is dynamic)
+
+18) When Creating Visualization
+- Think about the most important variables and how to place them in a graphic to represent them visually
+
+19) World cup individual scoring (scorers.jpg)
+Variables in visualization and how they are encoded
+
+Variable		Visual encoding
+Country			position x
+Goals Scored		size
+player			position x
+time			position y
+Top Scorer		color hue
+
+20) World cup semis margin of victory (semis.jpg)
+Variables in visualization and how they are encoded
+
+Variable		Visual encoding
+Country			color hue
+Game Win/Loss		position y -or- orientation
+Scoring margin		position y -or- length
+World cup winner	shape
+Time			position x
+
+21) Effectiveness of visual encodings (i.e position, length, etc as we have seen)
+- How do you know what's the best visual encoding to use for a quantitative variable? 
+- e.g. color saturation or position x ???? 
+- See paper by Clevland and McGill (GraphicalPerception.pdf)
+
+22) For Quantitative variables
+from most to least accurate
+- Position (most accurate) (x, y plot)
+- Length (i.e. bar chart)
+- Angle or Slope
+- Area
+- Volume
+- Color (hue) or Density (saturation)
+
+- Lesson is to understand most effective encoding and use them for the most important variables in your
+designs
+
+23) Decomposing Visualization
+- Get into the habit of doing this
+- Breakdown a visualization by listing the: Variables?, Data Types?, Visual Encodings? and 
+If these encodings are effective. sort of like we did in previous examples
+- Examples of visualizations: http://www.targetprocess.com/articles/visual-encoding.html
+
+One of the best ways to learn about design and visualizations is to explore a graphic and determine how it’s working.
+
+24) The Facebook Offerring: How it Compares
+http://www.nytimes.com/interactive/2012/05/17/business/dealbook/how-the-facebook-offering-compares.html?_r=1&
+
+- Visualization is built in D3js
+- Effective use of title: how facebook IPO compares with other tech companies in the past
+- uses five visual encodings: siz, shpe, x position, y position, color
+- size and y position encode thesame variable, i.e. comapny IPO value - called double encoding
+- color and x position encode the year the company IPOed
+- can use double encoding to emphazie important information
+- shape does not encode any information
+- Opacity, similar to color (saturation or density), not same, not really thought of as a visual encoding
+- Opacity refers to how transparent the cirlces are - not encoding any information, but lets you see
+overlaping circles
+
+25) The Facebook Offering Animation
+- Animation: not technically encoding, but shows evolution of data
+- See that facebook ipo was way bigger that others 
+- UK temperature histpry
+http://charts.animateddata.co.uk/uktemperaturelines/
+
+26) Spectrum of Visualization Technologies
+- Way too many to cover all, but here are some important ones
+
+Technologies (from lowest to highest level of abstraction)
+- HTML5 Canvas (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+- WebGL (http://en.wikipedia.org/wiki/WebGL)
+- SVG (Scalable Wector Graphics) (https://developer.mozilla.org/en-US/docs/Web/SVG)
+- D3.js (d3js.org)
+- NVD3 (http://nvd3.org/)
+- Dimple.js (http://dimplejs.org/)
+- Rickshaw (http://code.shutterstock.com/rickshaw/)
+- Chartio (https://chartio.com/)
+- RAW (http://raw.densitydesign.org/)
+
+Abstractions and Analogies
+- Programming Langueage Layer Cake (http://www.endlesslycurious.com/2008/10/28/programming-language-layer-cake/)
+
+- Information here is good; but focus is visualization
+
+27) WebGL, HTML5 Canvas, SVG (like assembly language of visualization)
+- Lowest level of Abstraction
+- Think of them as the assembly language of visualization
+-- Efficient, Performant
+-- Flexible
+-- Low Level
+-- hard to Develop With
+- Specity points, then paths between points, painfully slow
+
+28) D3.js (a little higer up the abstraction, like C/C++)
+- Data visualization library built on open web standards (Javascript, HTML, SVG, CSS)
+- built on js
+- binds data to HTML, SVG elements, or actually anything on the web page
+- C/C++ used to build operating systems / programs / compilers for other languages
+- Like C/C++, D# really shines when it is used to build higher level abstractions
+- D3.js like legos for data visualization
+
+29) NVD3, Dimple.js, Rickshaw (like python/ruby implement with C/C++)
+- Libraries build on D3
+- There are way more libraries built on D3, these are just the more common ones
+- These libraries usually fall into one of two categories 
+- (1) High level charting libraries: NVD3 or dimple.js
+- (2) Taylored to a specific type of data: Rickshaw for time-series and real time streaming data
+- for option two, there are also libraries for geographic data, and adding visualizations to maps
+
+30) RAW, Chartio (top of abstraction, like Excel)
+- Libraries with GUIs for creating visualizations
+- RAW: open source library built on top of D3 that lets you build pre-defined charts
+- Chartio: web-based product similar to tableau that allows you to very quicly and easily explore you data to build dashboards and charts
+- These libaries are not flexible and can only build a set of predefined charts
+- But these charts are built quickly and easily
+- Increadibly useful for 95% of the use cases you will encounter; making them effortless
+- Descend into the abstraction when you need more flexibility
+- As you Go up the abstrations spectrum productivity increases and things get easier
+
+31) Data Driven Documents (D3)
+- Binds data elements on a web page
+- CSV or JSON -> <svg> .... <svg> (svg elements)
+- Leverages exisitng technologies (DOM, CSS, SVG, etc)
+- Separation of concerns
+- Benefits from advances in browser related technologies (JS, HTML5, etc)
