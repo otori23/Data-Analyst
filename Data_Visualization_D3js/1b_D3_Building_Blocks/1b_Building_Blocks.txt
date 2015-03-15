@@ -54,3 +54,126 @@ One important objective for the Document Object Model is to provide a standard p
 13) d3.attr
 - get/set attributes of html dom elements that are represented as d3 objects
 
+14) Nested Selection
+http://bost.ocks.org/mike/nest/
+The nested selection refers to selecting an HTML element within another HTML element.
+
+The D3 chainable syntax refers to using methods one after another like in the following code. Notice how the .select(), .text(), and .attr() methods are chained together one after another.
+
+d3.select("h1.logo").text("Bananas").attr("fill", "yellow");
+
+15) Nested Selection vs. Chainable syntax 
+- Can you describe the difference between nested selections and D3's chainable syntax?
+- Try explaining it to a friend or post a description in the discussions.
+
+16) d3.html
+- gets/sets the inner html of a d3 dom element
+- d3.select('selection').html('') -> has the effect of removing elements
+
+17) Instructor notes
+d3.select("div.col-xs-3"); chooses EXACTLY the first div element on the page with the matching class name.
+
+On the other hand, d3.selectAll("div.col-xs-3"); chooses all the div elements on the page with the matching class name in an array.
+
+You can remove the div element using 
+d3.select("div.col-xs-3.ng-scope").remove();
+
+You can empty the html contents of the element by using d3.select("div.col-xs-3.ng-scope").html("");.
+
+Note: As its name suggests, .html() is only supported on HTML elements. SVG elements and other non-HTML elements do not support the innerHTML property, and thus are incompatible with the method selection.html().
+
+Refer to D3's API Documentation.
+
+selection.html() documentation
+selection.text() documentation
+
+18) d3 scale (x, y position)
+- When faced with creating any visualization based on data,
+- You need to figure out a way to transform the data values into the appropriate
+coordinates on the x and y planes
+- When build visualization in browser, often have to map the values of out data into
+pixel values
+- d3 was created spcifically fot this purpose. So, it has convinence function for converting data values into thier corresponding pixel values.
+- See the d3.scales module
+	
+19) To use D3 Scales
+- Specify the range of your input values
+- A function that transforms the inputs into output values
+- And the appropriate limits on you output range
+- http://animateddata.co.uk/articles/d3/scales/
+
+20) GapMinder example
+- x axis ranges from 250 to 100,000 on a log scale
+- y axis ranges fron 15 to 90 on a linear scale
+- The circle to plot is GDP/Capita = 8,347 (x),life expectancy = 75 (y).
+
+21) Define Life expectancy (y-axis) scale
+- want to map data value 15 - 90 to pixel values some min - some max
+- d3 refers to data values as .domain()
+- d3 refers to the pixel values as .range()
+- you need to specify to d3 what type of function to use to map .domain() t0 .range()
+- In this case use a linear function i.e. y = mx + b
+- Choose pixel min-max to fit size of box you are drawing in e.g. 0 - 200
+- The pixel values are offsets applied to the root svg element
+-  (0, 0) -> x increasing
+
+   |
+   V
+ y increasing 
+
+22) SVG element
+- All draiwng happens inside svg tag, so insert svg element first
+- var svg = d3.select('div.col-xs-3').append('svg')
+- By default the svg element does not have a visual representation
+- Can insert, shapes, points, lines, whatever, in the svg element
+
+var svg = d3.select('div.col-xs-3')
+            .append('svg')
+            .attr('width', 300)
+            .attr('height', 150);
+
+- http://chimera.labs.oreilly.com/books/1230000000345/ch03.html#_transparency
+Be sure to go to the section on SVG (Scalable Vector Graphics).
+
+23) Define scale for y-axis
+- var y = d3.scale.linear().domain([15, 90]).range([150, 0]);
+- not the range is 'flipped' because of the svg coordinate (0, 0) at top-left
+- the greates domain value (90) is mapped to the highest pixel value (0)
+- i.e. 0 is closest to the top of the browser window
+- the code in line 1 returns js function object that models the linear transformation
+
+24) Define x scale
+- var x = d3.scale.log().domain([250, 100000]).range([0, 150]);
+- note the range of the x-scale is NOT inverted
+
+- D3 Quantitative Scales: Log Scales by Mike Bostock
+https://github.com/mbostock/d3/wiki/Quantitative-Scales#log-scales
+
+- When should I use log scales in my graphs and charts? by Naomi Robbins
+http://www.forbes.com/sites/naomirobbins/2012/01/19/when-should-i-use-logarithmic-scales-in-my-charts-and-graphs/
+
+25) Scale for circle radius (i.e. in the GapMinder visualization)
+- Can define a scale that corresponds to the radius of the circles we draw
+- for GapMinder radius = population of country
+
+26) Define SVG Circle
+- svg.append('circle').attr('r', 10)
+			.attr('fill', 'red')
+			.attr('cx', x(8347))
+			.attr('cy', y(75));
+
+- r-radius, cx-center x, cy-center y
+
+- Documentation for the attributes defined on an SVG circle
+https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle
+
+27) D3 Recap
+- Declarative API: tell d3 what you want NOT how you want task accomplised
+- decouple specification from execution, i.e. can swap out backend graphics engine
+- d3 code could be rendered in svg/html (default), html5 canvas, webGL, etc
+- datum: a single piece of information
+
+28) External Data
+- D3 can easily load and manipulate external data
+- d3.json(...) e.g load data from remote resource asynchronously (AJAX or AJAJ)
+

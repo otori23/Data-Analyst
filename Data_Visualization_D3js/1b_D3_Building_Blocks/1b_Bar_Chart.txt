@@ -1,0 +1,48 @@
+1) Working through part II of Mike Bostock's Let's Make a Bar Chart Tutorial.
+http://bost.ocks.org/mike/bar/
+
+2) svg group tag (<g>...</g>)
+- analogous to <div> tag in html
+- has no visual display, only serves to group that elements contained within it
+
+3) Binding Data
+- See the draw js function in the code from Bostocks tutorial
+- 1st pass at parsing the code:
+
+var bar = chart.selectAll("g")
+  .data(data)
+  .enter().append("g")
+  .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+
+- select all the g tags in the svg element (i.e. selected by .chart)
+- Note that initially there are no g tags, so the selection will be empty
+- Using .data(), bind the data the function receives to the selected g tags (none for now)
+- .enter() returns a sub-selection to the call to .data()
+- .enter() returns a selection of every dataum (in data) that doesn't have a corresponding
+g tag associated with it (i.e. data not placed on the page)
+- Initially no g tags on page, so .enter() is return all the data points
+- .enter().append("g") then means for every point in the data append a g element to the chart
+- .attr() says for each of the "g" elements, set thier transform attribut to translate function
+- the transform attribute is specific to svg elements
+- Note, there are other kinds of selections besides .enter()
+- bar = a bunch of g tags that have some transform applied to them
+- at this point no visual elements have been placed on the web page
+
+Data Visualization Resources
+http://www.thefunctionalart.com/
+
+http://visualisingdata.com/
+
+http://www.storytellingwithdata.com/
+
+http://helpmeviz.com/
+
+http://d3js.org/
+
+http://www.tableausoftware.com/public/
+
+http://raw.densitydesign.org/
+
+http://www.adobe.com/products/illustrator.html
+
+http://plot.ly/
