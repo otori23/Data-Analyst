@@ -1,0 +1,292 @@
+1) Next Big Goal
+- Recreate a visualization to improve it
+- Learn principles to prototype and enhance/refine your graphics
+- how to measure effectiveness of visualization
+
+2) Visual Encodings 
+- Think of as building blocks of graphics
+- Compenents we can combine in creative ways to construct a visualization
+- Think of as nouns, verbs, adjectives (i.e. parts of speech) of graphics
+- parts of speech (pos) are to sentences as viusal encodings are to charts
+
+3) Charts
+- wikipedia says: Charts are graphical representation of data in which the data is 
+represented by symbols
+
+- such as bars in a bar chart, lines in a line chart, or slices in a pie chart
+
+4) POS analogy
+- whlie there may be infinitely many ways to create a sentence with pos primitives, 
+- in practice, there are a limited number of ways that make sense
+- and an even smaller number that are used regularly
+- This is due to constraints and rules of the language and grammer 
+(i.e. the rules enforce certain constraints) 
+- Also, it is easier to understand patterns that are familiar
+
+5) Common Chart Types
+- See charchooserincolor.jpg
+(original source: http://extremepresentation.com/)
+
+- Selecting the Right Graph (the_right_graph.pdf) for Your Message by Stephen Few
+
+- Cole shares her thoughts on the Chart Chooser.
+(http://www.storytellingwithdata.com/2013/04/chart-chooser.html)
+
+- Juice Labs provides an interactive form of the Chart Chooser. 
+You can also download Excel or PowerPoint templates of the chart types from the site. 
+(http://labs.juiceanalytics.com/chartchooser/index.html)
+
+
+6) Effective Chart Design
+- Stephen Few article - Effective_Chart_Design.pdf
+- Simplest solution is best
+
+7) Common Chart Types
+- Visual Encodings + Data Types + Relationship = Chart Types
+
+- Scatterplots are great for showing two paired sets of values 
+(for example, the heights and weights of people) to determine whether there 
+is a relationship between them.
+
+- A histogram requires binning of the data. In other words, the histogram shows 
+the counts in each discrete interval of the continuous data. For example, the number 
+of people between age 0-10, 11-20, 21-30, 31-40, 41-50, 51-60, 61-70, 71-80, 81-90, 91 and older.
+
+- Solomon Messing's When to use stacked bar charts?
+(https://solomonmessing.wordpress.com/2014/10/11/when-to-use-stacked-barcharts/)
+
+8) Choosing Chart types
+- instructor hass some issue with how the chart chooser is organized, and thinks some
+chart types are missing
+
+- When choosing a chart type he normally starts with
+-- Data Type: Continuous or categorical
+-- Dimension: 1D, 2D, 3D
+-- Am I trying to compare two variables
+
+
+-- Am I trying to show how one variable is distributed
+--- Want to see distribution of 1D continuous data: historgram (with bins)
+--- Want to see distribution of 1D categorical data: bar chart (x axis values have no intrinsic order)
+
+- Am I trying to show a comparison of distributions
+--- boxplot or small multiples - represent distribution of multiple variables side by side with each other
+
+- Correlation of two variables
+-- scatter plot (no dependency of values on x-axis)
+-- as opposed to time-series data where there is an ordering of the values on the x-axis (show trend by connecting poitns with a line)
+-- bubble chart is a generalization of scatter plot (bubble size shows additional dimension)
+
+9) Small Multiples
+- Also known as Trellis or Lattice plots
+- A series of charts laid out in a grid
+- Common data faceted by different categories
+- Coined and popularized by Edward Tufte - pioneer in data visualization
+
+10) Box Plots
+- Visualize multiple distributions in one plot
+- Invented by John Tukey - from the field of exploratory data analysis
+
+11) Un/Stacked Bar Charts
+- Shows proportions or comparisons
+- If you have multiple categories and want to show how the magnitude of each compares to the others
+- Also show how distribution changes over time between the categories
+
+12) Chart Relationships
+- bar chart: highlights individual values, supports comparisons, and can show rankings or deviations
+- boxplot: shows distributions and quantiles, especially useful when comparing distributions
+- pie chart: shows part-to-whole relationship and best suited for one category; poor for making comparisons
+- stacked bar chart: shows part-to-whole relationship and best suited for showing composition within categories and totals
+- bubble chart: shows how three or more sets of values vary; shows correlation
+- line chart: shows overall changes and patterns, usually over equally spaced intervals of time
+- map: values are encoded on physical locations and patterns may be drawn by comparing locations
+- scatterplot: shows how two pair sets of values (for example height and shoe size) vary; shows correlation
+
+13) Tables
+- use when data does not have any inherent structure or order
+- typical used to represent summaries of data or disjoint facts
+- like a lookup mechanism
+
+14) Map
+- (x,y) + geographic context = Map
+
+15) Other geographic charts
+- Choropleth = geographic + color 	(http://en.wikipedia.org/wiki/Choropleth_map)
+- Cartogram = geographic + size 	(http://en.wikipedia.org/wiki/Cartogram)
+- Dot map = geographic + shape (http://www.coopercenter.org/demographics/Racial-Dot-Map)
+
+16) A Tour through the Visualization Zoo by Jeff Heer, Mike Bostock, and Vadim Ogievetsky
+- http://queue.acm.org/detail.cfm?id=1805128
+
+17) Common Chart Types from Duke Introduction to Data Visualization Guide
+- http://guides.library.duke.edu/vis_types
+
+18) Many other decisions to be made in addition to choosing the right chart type
+
+19) Pre-attentive Processing
+- http://en.wikipedia.org/wiki/Pre-attentive_processing
+- Allows you to instantly recognize parts of a visualization
+- Like using color to highlight the 9s in a matrix of #s - then wasy to count how many 9s
+- pre-atentive pocessing occurs on the order of 200 - 250 milliseconds
+
+20) Commonm pre-attentive attributes
+- color (hue and stauration)
+- form (i.e. shape)
+- spatial position (something like orientation)
+- Movement (i.e. using animation or make something flicker)
+- Obviously can combine them if needed
+
+- Processes that Pop Out by Juan C. Dursteler
+(http://www.infovis.net/printMag.php?num=179&lang=2)
+
+- Tapping the Power of Visual Perception by Stephen Few
+(visual_perception.pdf)
+
+- Information Visualization: Perception for Design by Colin Ware
+(http://www.amazon.com/Information-Visualization-Third-Edition-Technologies/dp/0123814642)
+
+- Source: [Healey et al., 1996], Healey, C. G., Booth, K. S., and Enns, J. T. 
+High-Speed Visual Estimation Using Preattentive Processing. 
+ACM Transactions on Human Computer Interaction 3(2), pages 107-135, 1996.
+(high_speed_visual_estimation.pdf)
+
+21) Negative Space
+- can also use for pre-attentive processing
+- can use to encode missing data or values of zero
+
+22) Color
+- Don't use if it adds nothing or distracts
+- Saying in design circles: "Get It Right in Black and White"
+- Use less intense color - intense colors strain the eye
+- Can use color to highlight something import in visualization
+- Rules for using color by Stephen Few (rules_for_using_color.pdf)
+- Cynthia Brewer's ColorBrewer (http://colorbrewer2.org/) assist in picking colors
+- Adobe's Kuler is now named Adobe's Color CC (https://color.adobe.com/create/color-wheel)
+
+23) Color Blindness
+- Note that some people are color blind
+- Color Blindness test (http://www.color-blindness.com/color-blindness-tests/)
+
+24) Alberto Cairo (his book is "The Functional Art")
+- Dude gets mentioned ALOT
+- http://www.thefunctionalart.com/p/about-book.html
+
+25) Edward Tufte - on color in visualizations
+- Indeed, so difficult and subtle that avoiding catastrophe becomes the first principle 
+in bringing color to information: Above all, do no harm.
+
+26) Gestalt Principles of Perception
+
+- We organize what we see in particular ways to make sense of visual information. 
+There are six principles that influence the ways human see and understand visuals.
+
+-- PROXIMITY
+
+-- SIMILARITY
+
+-- FIGURE AND GROUND
+
+-- CONTINUITY
+
+-- CLOSURE
+
+-- SIMPLICITY
+
+27) Gestalt
+
+- loosely translated in English means "shape" or "form"
+- http://jimsaw.com/design/gestalt.html
+- http://graphicdesign.spokanefalls.edu/tutorials/process/gestaltprinciples/gestaltprinc.htm
+- http://www.slideshare.net/luisaepv/the-gestalt-laws-of-perception
+
+28) ChartJunk
+- The term chartjunk was coined by Edward Tufte in his 1983 book, 
+The Visual Display of Quantitative Information.
+
+- chartjunt = unecessary visual encodings
+
+- when designing you visualization you think about what to put in AND what to leave out
+
+29) Grid Lines in Graphs
+Grid Lines in Graphs by Stephen Few (grid_lines.pdf)
+
+30) Data to Ink ratio
+- the data-ink ratio is defined as the ratio of the amount of ink used to 
+describe the data to the amount of ink in the graphic.
+
+- high data to ink ratio is good
+
+- low data to ink ratio is bad - to may unecessary elements in visualization
+
+- The example that Ryan covers comes from Dark Horse Analytics.
+(http://darkhorseanalytics.com/blog/data-looks-better-naked/)
+
+31) Lie Factor
+- Created by Edward Tufte
+- Describes the integrity of a graphic
+- or how well a graphic represents its underlying data
+- Size of the effect shown in the graphic / size of the effect shown in the data
+- 0.95 < lie-factor < 1.05
+- calculate the denominator and numerator as: (|second val - first val|/first val) * 100
+
+32) Jitter
+- can be thought of as noise in the collection or presentation of the data.
+- can also be introduced to data values to reduce overplotting and is generally 
+useful in the exploratory data analysis phase.
+- http://zevross.com/blog/2014/05/05/unhide-hidden-data-using-jitter-in-the-r-package-ggplot2/
+
+33) Percentage Change
+- subtract the old from the new, then divide by the old value. Show that as a Percentage.
+
+34) The Grammer of Graphics
+- Separate content from aesthetics
+
+- Grammar to make thinking and reasoning about graphics and charts easier
+
+- Defines a set of best practices for developing and iterating on a data visualization
+
+- Developed by Leland Wilkinson in the late 1990s
+(http://www.amazon.com/The-Grammar-Graphics-Statistics-Computing/dp/0387245448)
+
+- Hadley Wickham's A Layered Grammar of Graphics
+(layered-grammar.pdf)
+
+35) Why Separate content from aesthetics
+- Separately think about visual elements and structure of data
+-- transform data without changing visual representation
+-- allow for collaboration across teams
+
+36) D3's implementation of the theory (i.e. specification) of the Grammar of Graphics
+- NOTE: R's ggplot2 is also an implementation of the Grammar of Graphics specification
+- NOT: D3 not a charting library, but step below, ie building blocks for a charting library
+- start with raw data in a file (my-data.json)
+- as we go through the pipeline of the grammar of graphics
+- apply a different transformation to the data at each step
+- i.e. from Source (in file) -> .......-> Graphic (rendered on web page in browser)
+
+37) The pipeline
+- source (i.e. json file) -> |d3.json()| -> variables (i.e. array of js objects, [{}, {}, ...])
+- d3.nest -> groups our data
+- d3.scale -> transforms a continous or categorical variable into 
+something that a web page can display i.e pixel value, or color
+- d3.layout -> a convinence function that allows us to apply a common 
+transformation according to a set of predefined chart layouts that we 
+might want (i.e pie chart, histogram, or graph)
+- d3.append -> add svg or html elements to DOM
+- d3.attr -> changes some attribute of whatever we are appending
+- use style attribute or css selectors to add aesthetics to graphic
+
+38) More on the grammar of graphics
+- Introducing the Grammar of Graphics Plotting Concept
+(http://www.science-craft.com/2014/07/08/introducing-the-grammar-of-graphics-plotting-concept/)
+
+- For those familiar with the R programming language and ggplot2, 
+you can better understand the Grammar of Graphics by reading this post.
+(https://ramnathv.github.io/pycon2014-r/visualize/ggplot2.html)
+
+
+
+Summary of principles so far
+- pre-attentive processing
+- negative space
+- color

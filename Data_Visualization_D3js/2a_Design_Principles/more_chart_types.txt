@@ -1,0 +1,29 @@
+More Amazing Chart Types
+
+
+There are many other chart types for designing effective data visualizations. There's also more waiting to be created!
+
+Read about these chart types by following the links in the titles below. Bullet graphs and sparklines are often good choices for graphics on dashboards. We'll leave it you to determine why.
+
+1) Bullet Graph (http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf)
+
+Stephen Few developed the bullet graph to replace meters and gauges that often fill too much valuable space on dashboards. You can read more about bullet graphs on wikipedia (http://en.wikipedia.org/wiki/Bullet_graph).
+
+2) Sparklines (http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR)
+
+Edward Tufte invented these bit-sized graphics to pack a punch of information in a small chart area. A reader can quickly see historical trends, anomalies, and the current status of a metric by viewing a sparkline. You can read more about sparklines on wikipedia (http://en.wikipedia.org/wiki/Sparkline).
+
+3) Cycle Plots (intro_to_cycle_plots.pdf)
+
+Originally created by Cleveland, Dunn, and Terpenning in 1978, cycle plots offer a way to investigate time series data in a different way than conventional line charts.
+
+4) Connected Scatter Plots (http://www.thefunctionalart.com/2012/09/in-praise-of-connected-scatter-plots.html)
+
+Think back to the Gapminder data visualization. Could you reveal the same patterns in the data over the years without animation?
+
+Alberot Cairo says "Yes!". Alberto praises connected scatter plots and shares examples of them on his blog, The Functional Art.
+
+5) Violin Plots (http://en.wikipedia.org/wiki/Violin_plot)
+
+Violin plots are similar to box plots, except that they show the probability density of the data at different values. Nathan Yau describes violin plots and other ways to visualize and compare distributions on his blog Flowing Data. 
+(http://flowingdata.com/2012/05/15/how-to-visualize-and-compare-distributions/)
