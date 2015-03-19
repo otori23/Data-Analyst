@@ -227,6 +227,7 @@ Technologies (from lowest to highest level of abstraction)
 - NVD3 (http://nvd3.org/)
 - Dimple.js (http://dimplejs.org/)
 - Rickshaw (http://code.shutterstock.com/rickshaw/)
+- DC.js (http://dc-js.github.io/dc.js/) - Dimensional Charting Javascript Library
 - Chartio (https://chartio.com/)
 - RAW (http://raw.densitydesign.org/)
 
@@ -252,7 +253,7 @@ Abstractions and Analogies
 - Like C/C++, D# really shines when it is used to build higher level abstractions
 - D3.js like legos for data visualization
 
-29) NVD3, Dimple.js, Rickshaw (like python/ruby implement with C/C++)
+29) NVD3, Dimple.js, Rickshaw, DC (like python/ruby implement with C/C++)
 - Libraries build on D3
 - There are way more libraries built on D3, these are just the more common ones
 - These libraries usually fall into one of two categories 
