@@ -11,7 +11,7 @@ Aside from Intro to data science class
 
 3) Categorical Data
 - Represent characteristics
-- e.g. position on team, which tean, hometown, handedness
+- e.g. position on team, which team, hometown, handedness
 - can take on numerical values, but the don't have mathematical meaning, i.e...
 - can't perform mathematical operations on them add, take average, etc
 

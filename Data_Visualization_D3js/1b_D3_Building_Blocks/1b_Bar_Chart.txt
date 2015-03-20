@@ -22,7 +22,7 @@ var bar = chart.selectAll("g")
 g tag associated with it (i.e. data not placed on the page)
 - Initially no g tags on page, so .enter() is return all the data points
 - .enter().append("g") then means for every point in the data append a g element to the chart
-- .attr() says for each of the "g" elements, set thier transform attribut to translate function
+- .attr() says for each of the "g" elements, set thier transform attribute to translate function
 - the transform attribute is specific to svg elements
 - Note, there are other kinds of selections besides .enter()
 - bar = a bunch of g tags that have some transform applied to them

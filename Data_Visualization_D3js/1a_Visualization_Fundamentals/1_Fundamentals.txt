@@ -22,8 +22,8 @@ http://vizwiz.blogspot.com/ - Andy Friebel from facebook; his blog
 
 Alberto Cairo's Three Steps to Become a Visualization Designer by Andy Kriebel.
 - http://vizwiz.blogspot.com/2013/01/alberto-cairo-three-steps-to-become.html
-- Final iteration is interactive "slope graph" (which he prefferd of a scatter plot)
-- Visualization seem to be done and hosted by tableau
+- Final iteration is interactive "slope graph" (which he preffered to a scatter plot)
+- Visualization seem to be done and hosted by Tableau
 
 4) Slope Graphs
 - Typically, I find myself using slopegraphs to compare two points in time
@@ -39,7 +39,7 @@ Alberto Cairo's Three Steps to Become a Visualization Designer by Andy Kriebel.
 6) General advice 
 - Your greatest insight is only as good as you ability to communicate it
 - Start with what you already know and build from there, so as an engineer...
-- My need to learn some design language and visual principles, human perception, etc.
+- May need to learn some design language and visual principles, human perception, etc.
 
 7) Are you a Designer vs. Engineer (Software) vs. Storyteller (Communication) 
 - On scale of  1-10, 1-9-1 respectively
@@ -232,7 +232,7 @@ Technologies (from lowest to highest level of abstraction)
 - RAW (http://raw.densitydesign.org/)
 
 Abstractions and Analogies
-- Programming Langueage Layer Cake (http://www.endlesslycurious.com/2008/10/28/programming-language-layer-cake/)
+- Programming Language Layer Cake (http://www.endlesslycurious.com/2008/10/28/programming-language-layer-cake/)
 
 - Information here is good; but focus is visualization
 

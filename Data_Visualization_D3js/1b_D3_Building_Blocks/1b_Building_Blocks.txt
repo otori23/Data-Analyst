@@ -93,7 +93,7 @@ selection.text() documentation
 coordinates on the x and y planes
 - When build visualization in browser, often have to map the values of out data into
 pixel values
-- d3 was created spcifically fot this purpose. So, it has convinence function for converting data values into thier corresponding pixel values.
+- d3 was created specifically fot this purpose. So, it has convinence function for converting data values into thier corresponding pixel values.
 - See the d3.scales module
 	
 19) To use D3 Scales
