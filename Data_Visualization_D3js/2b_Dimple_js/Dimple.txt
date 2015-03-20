@@ -1,0 +1,187 @@
+1) Dimple.js
+- http://www.dimplejs.org
+- js library built on top of D3
+- Allows us to work on the abtraction level of a chart
+- D3 is on an abstraction layer just one step below 
+- D# abstraction of the grammar of graphics
+- Even lower level abrastion are visual encodings: shape, scale, position
+
+2) Sankey diagrams 
+- are a specific type of flow diagram, in which the width of the arrows 
+is shown proportionally to the flow quantity.  
+
+3) Funnel Plot Chart
+- funnel plot is a graph designed to check for the existence of publication bias
+
+4) Reason for using Dimple.js
+- built atop D#
+- genlte learning curce
+- exposes the D3 object (fairly unique to dimple)
+
+- d3 is tool to make business analysts more productive with charts
+- due to last fact power users of dimple can decide to use D3 directly
+- as opposed to using dimples convinence methods
+- Lesson 4: will use d3 to create interactive visualization and animations
+
+5) D3 data binding pattern
+- pattern used to bind data to elements on web page
+- d3.selection.data(data).enter().apppend('rect')
+- most conufusing for new users
+- confusion mainly due to .enter() [also .exit()] methods
+- these two methods are relevant when adding or removing elements on a webpage
+in an animation, transition, or interaction
+
+- more information on .enter() and .exit() in 
+
+6) Sketching
+- iterattive process of designing a visualization
+- often not a "right" answer
+- matter of opinion: based on your context and what works for you
+- Do not know a prioro how dat will interact with aesthetics
+
+7) Local WebSever
+- Why? (http://chimera.labs.oreilly.com/books/1230000000345/ch04.html)
+- You can start a local server using Python. Navigate to the directory that contains all of the files and then type python -m SimpleHTTPServer (for Python 3, python3 -m http.server) in the command line. 
+- If you type localhost:8000 into the address bar of your browser, then you should see the files that you can display in the web page.
+- To stop the server navigate to the terminal window it is running in and type Control-C to quit the process.
+
+8) Why do we need to navigate to local host?
+"In some cases, you can view local HTML files directly in your web browser. However, some browsers have restrictions that prevent them from loading local files via JavaScript, for security reasons. That means if your D3 code is trying to pull in any external datafiles (like CSVs or JSON), it will fail with no good explanation. This isn’t D3’s fault; it’s a browser feature that prevents loading of scripts and other external files from third-party, untrusted websites."
+
+To learn other ways of setting up a local web server, read Setting up a Web Server from Scott Murray's book, Interactive Data Visualization for the Web.
+
+This security restriction is formally called CORS (Cross-Origin Resource Sharing) which Jonathan references in the video.
+
+9) CORS (Cross-Origin Resource Sharing)
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+
+10) Unix Tutorial
+http://www.ee.surrey.ac.uk/Teaching/Unix/unix1.html
+
+11) Options for web servers
+https://make.wordpress.org/core/handbook/installing-a-local-server/ 
+
+12) js debugger statment
+- set a break point in js
+
+13) console.table
+- js function to will print js objects in tabular format
+- great for debugging
+- can crash your browser if you use a large data object
+
+14) Dimple bar chart construction code
+- Conventions that dimple works with: axes(lines 2, 3), series(line 4), fields(line 3 - attendance, year i.e. columns in dataset)
+
+var myChart = new dimple.chart(svg, data);
+var x = myChart.addTimeAxis("x", "year"); 
+myChart.addMeasureAxis("y", "attendance");
+myChart.addSeries(null, dimple.plot.bar);
+myChart.draw();
+
+- axes, series, fields are essential building blocks of charts in dimple
+
+15) Dimple.js API 
+- is much closer to what the gOfg specifies than D3 itself
+
+16) "use strict"; 
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
+- enforce a restricted subset of javascript within the function were the statment is made 
+- this statement causes the browser to throw explicit errors everytime the browser
+might silently fail
+
+17) Margin conventions
+- common way for setting the dimensions of a chart
+- http://bl.ocks.org/mbostock/3019563
+
+18) Dimple vs D3
+- dimple -> 5 lines of code vs. d3 -> 30 lines of code
+- many more sources of error in d3 situation
+- PROPER ABSTRACTIONS CAN GO A LONG WAY TOWARDS DEVELOPER PRODUCTIVITY
+
+19) var myChart = new dimple.chart(svg, data);
+- creates a new chart object in the specified element with the speified data
+- data is an array of js obejct literals representing the data to visualize i.e. [{}, {}, ....]
+- the data loading function kicks of the callback function (draw())
+
+20) var x = myChart.addTimeAxis("x", "year");  
+- specifies what type of data our x-axis represents
+- in this case a continuous value indicated by the time axis function
+- 1st argument => which axis in this case x
+- 2nd argument => whcich field in the data table
+- basiclly line says, at to my chart a time axis which will be the x-axis, 
+and corresponds to the year column of our data
+
+- could group by field: myChart.addSeries('stage', dimple.plot.bar);
+
+21) myChart.addMeasureAxis("y", "attendance");
+- specifies what type of data our y-axis represents
+- identical interface to the previous line of code
+- bassically says, add to my chart, a continuous value on the y-axis that corresponds to 
+the attendance column of my data
+
+22) myChart.addSeries(null, dimple.plot.bar);
+- specifies what type of chart we would like to make
+- 1st argument => specifies a field to create categories for the chart to group the data by
+- null tells Dimple not to facet or group the bars in any way
+- 2nd argument => chart type, in this case a bar chart
+- Always review API docs of course
+
+23) myChart.draw();
+- actually draws the chart on the web page
+- like appending elements to svg element if in d3
+- .draw() returns the chart object that it was called against
+
+24) dimple advantages
+- allows us to iterate much more quickly on our visual design process
+- also, allows us to think in a particular way when designing charts
+- that is in, columns, axes, datatypes, and relationships between them
+- This the the true power of a well made abstraction, interface, or api
+
+25) Dimple Date and TimeString Formatting
+- http://man7.org/linux/man-pages/man3/strftime.3.html
+- x.dateParseFormat = "%Y";
+
+26) Changing the x-interval: tickFormat and timeInterval
+- these properties can be adjusted for the axis of Dimple charts
+- https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.axis#properties-1
+- x.tickFormart = "%Y";
+- x.timeInterval = 4;
+
+27) Bar Chart: The Good
+- highlights years for missing data, i.e. no world cup
+- only care about the hieght of the bar
+
+28) Bar Chart: The Bad
+- x-axis is an intrinsically ordered varialbe (i.e. the time)
+- bar chart best suited for categorical data on x-axis (i.e. indicate a group)
+
+29) Changing the chart type
+- dimple chart type examples: http://dimplejs.org/examples_index.html
+- dimple.plot documentation: https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.plot
+- Change 2nd argument of .addSeries()
+- i.e. for scatter plot instead of bar chart: dimple.plot.bar => dimple.plot.scatter
+
+30) Combine scatter and line chart
+- draw add a scatter and line series to thesame chart
+- pure line plot doesn't show missing data
+- pure scatter doesn't highlight time order; x-axis values should be unrealated
+- but for a time-series the values are related
+- Scatterplots aren't usually used for ordered datasets such a time series and 
+are usually great for showing relationships between two quantitative variables.
+
+31) EDA (Exploratory data analysis) vs Sketching
+EDA: insights, erroneous values, structure, yourself
+Sketching: visual layout, visual encodings, others
+
+32) Customize Charts with native css
+- can use css to select all the scatter plot circles to make the another color
+- inspect the circle elements in your browser to know what id/class to use as selector
+add to head
+
+<style>
+  circle.dimple-series-1 {
+    fill: red;
+  }
+</style>
+
+33) Adding a title using D3

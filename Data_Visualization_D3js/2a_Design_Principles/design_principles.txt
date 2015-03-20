@@ -19,7 +19,7 @@ represented by symbols
 - whlie there may be infinitely many ways to create a sentence with pos primitives, 
 - in practice, there are a limited number of ways that make sense
 - and an even smaller number that are used regularly
-- This is due to constraints and rules of the language and grammer 
+- This is due to constraints and rules of the language and grammar 
 (i.e. the rules enforce certain constraints) 
 - Also, it is easier to understand patterns that are familiar
 
