@@ -1,0 +1,48 @@
+0) You should know
+- Design Principles
+- How to compose graphics
+
+1) Now what?
+- We want to understand some narrative strutucers we can use to walk our viewers through our visualizations
+- Baiscally primitives for how to define a context in which your graphic has meaning and makes sense
+
+2) Traditional Journalism
+- What appraoches do they take when creating their stories
+- Nate Silver's view: quantitative <-> qualitative; Rigorous & emperical <-> Anecdotal & ad-hoc
+- http://fivethirtyeight.com/features/what-the-fox-knows/
+- both dimensions are orthogonal and create 4 quadrants (journalism_map.jpeg)
+- bottom two quadrants are trash
+- this course focuses on techniques used by organizations that occupy the upper left quadrant
+- i.e. 538
+
+3) Correlation vs Causation
+- Correlation does not imply causation
+- http://www.tylervigen.com/
+- http://en.wikipedia.org/wiki/Correlation_does_not_imply_causation#Examples_of_illogically_inferring_causation_from_correlation
+
+4) In Math Speak
+- Correlation: A and B
+- Causation: A -> B
+
+5) Traditional Jounalism			
+- data around narrative				
+- narrative is primary; data is secondary and supporting role
+- start with article, and have static chart for support
+- linear structure to story
+- delivery mechanism: physical or static (i.e. static html)
+
+6) Data Journalism
+- narrative around data
+- data is primary; narrative is secondary
+- start with dataset; and write a story about what is happening in the data set
+- interactive charts showing data 
+- labels, annotations, and side bars to add context to the data	
+- interactivity allows for more complex story lines that are not necessarily linear
+- delivery mechanisim: interactive using open web technologies
+
+7) Misconceptions
+- Data visualization is not just about the end visualization
+- 90% of the work is data munging
+- the last step is the visualization
+
+8) Getting and cleaning data
