@@ -102,8 +102,110 @@ http://nbviewer.ipython.org/github/fonnesbeck/pytenn2014_tutorial/blob/master/Pa
 - otherwise, you risk the overall credibility of your message among readers
 
 18) Data bias
+- systematic measurement errors or faulty devices can bias raw data values
+- selection bias can lead to subgroups that are not representative of the population of interest for a given question - data bias and sampling methods are beyond the scope of this class
+- however, we encourage you to learn more about these topics:
+-- http://en.wikipedia.org/wiki/Data_collection
+-- http://en.wikipedia.org/wiki/Sampling_(statistics)#Sampling_methods
+-- http://en.wikipedia.org/wiki/Bias_(statistics)
 
 19) Reader bias
+- encompasses any preconceived notions or assumptions that a reader brings to interpreting a visualization
+- the assumptions may pertain to a reader's domain knowledge or the topic of the data visualization
+- other assumptions may involve political, religious, or cultural beliefs 
+- or a reader's familiarity with a specific chart type 
+- you should always consider your audience's background and familiarity with graphics when designing a data visualization
 
+- both the designer (encoder) and the reader (decoder) ought to be aware of bias
+- communication can go awry due to the designer's choices or the reader's interpretation of a graphic
 
- 
+20) Personal Data Visualization
+- visualizations tell a subjective story
+- http://aprilzero.com/ by Anand Sharma
+- http://feltron.com/
+- the sites are just examples of good looking web/graphic design
+
+21) Traditional story telling (i.e. traditional narative structure)
+- introduction -> rise in action -> climax -> fall in action -> final resolution -> the end
+- works will in a variety for formats: oral, written stories, TV and movies
+- rise of new mediums (computers, internet) has given rise to new narative structures
+- these new narrative structures can be more complex
+
+22) Author-Driven Narrative
+- have a well defined start and end point
+- procedes in a linear flow that is directed by the quthor of the visualization
+
+23) View-Driven Narrative
+- have a well defined start point
+- allows user the freedom to choose the direction in which the nrarrative progresses
+- the story will end in different places for different users
+- depends on the choices users make along the way
+
+24) Author-Driven vs. User-Driven
+- author driven
+-- strong ordering
+-- heavy messaging
+-- need for clarity and speed
+
+- view driven
+-- ask questions
+-- explore 
+-- tell your won data stories
+
+25) Author-Driven example
+- Visualizing the Syrian Refugee Crisis by Wesam Manassra
+http://visual.ly/visualizing-syrian-refugee-crisis?view=true
+
+- The Facebook Offering: How It Compares by the New York Times
+http://www.nytimes.com/interactive/2012/05/17/business/dealbook/how-the-facebook-offering-compares.html?_r=0
+
+- note that they quote the data sources the used
+- the progression of the story is fixed, i.e. by time
+
+26) View-Driven example
+- user freely interacts with data and creates their own story
+
+- San Francisco Crimespotting by Stamen Design
+http://sanfrancisco.crimespotting.org/
+
+- Paths to the White House by the New York Times
+http://www.nytimes.com/interactive/2012/11/02/us/politics/paths-to-the-white-house.html
+
+27 Martini Glass visualization (a more complex narrative structure)
+- like a hybrid of author and view driven narrative
+- starts out as author driven, then morphs into user drive
+- think of the shape of a martini glass on its side (martini_glass.jpeg)
+
+28) Martini Glass visualization examples
+- drone strikes (http://drones.pitchinteractive.com/)
+- gun deaths (http://guns.periscopic.com/?year=2013)
+
+29) Narrative structure summary (analyzing the narrative structure of visualizations)
+- as you create your won visualizations, try to decide on which narrative structute you want to use
+- when you consume a visualization, ask youself the following
+-- what is the narrative structure ?
+-- how does the visualization lead you through the data ?
+-- what is the story being told ?
+-- how could this have been improved ?
+
+30) More example visualization
+- One human hearbeat
+http://onehumanheartbeat.com/
+
+- OECD Better Life Index
+www.oecdbetterlifeindex.org
+
+- Assessing the Damage and Destruction in Gaza
+http://www.nytimes.com/interactive/2014/08/03/world/middleeast/assessing-the-damage-and-destruction-in-gaza.html?_r=0
+
+- How Birth Year Influences Political Views
+http://www.nytimes.com/interactive/2014/07/08/upshot/how-the-year-you-were-born-influences-your-politics.html?abt=0002&abg=1
+
+- Why is her paycheck smaller?
+http://www.nytimes.com/interactive/2009/03/01/business/20090301_WageGap.html
+
+- Rating a Health Law's Success
+http://www.nytimes.com/interactive/2014/05/19/health/rating-a-health-laws-success.html
+
+- Rise of the Megacities
+http://www.theguardian.com/global-development/interactive/2012/oct/04/rise-of-megacities-interactive
