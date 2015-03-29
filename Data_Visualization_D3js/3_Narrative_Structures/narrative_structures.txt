@@ -41,8 +41,69 @@
 - delivery mechanisim: interactive using open web technologies
 
 7) Misconceptions
-- Data visualization is not just about the end visualization
+- data visualization is not just about the end visualization
 - 90% of the work is data munging
 - the last step is the visualization
 
-8) Getting and cleaning data
+8) The Reality
+- 90% of the time spent creating a data visualization is actually spent "finding the data, verifying the data, parsing the data, filtering the data, and exploring the data." This is certainly true in the context of data science and when trying to answer questions with data. 
+
+9) Getting and cleaning data
+- the data journalism handbook: http://datajournalismhandbook.org/
+- getting data section: http://datajournalismhandbook.org/1.0/en/getting_data.html
+- five minute field guide:
+http://datajournalismhandbook.org/1.0/en/getting_data_0.html
+- getting data from the web:
+http://datajournalismhandbook.org/1.0/en/getting_data_3.html
+
+10) Verifying Data
+- When it comes to verifying data, it is up to you to know the data inside and out, including the data's source, collection methods or other data generating processes.
+
+11) EDA Tools
+If you've ever tried cleaning up a messy data set, you know that data processing and manipulation can be cumbersome.
+- OpenRefine: http://openrefine.org/
+- Google Spreadsheets: http://www.google.com/sheets/about/
+- iPython Notebook: http://ipython.org/notebook.html
+- Pandas: http://pandas.pydata.org/
+- Pandas Example: 
+http://nbviewer.ipython.org/github/fonnesbeck/pytenn2014_tutorial/blob/master/Part%201.%20Data%20Wrangling%20with%20Pandas.ipynb
+- R: http://www.r-project.org/
+
+12) Once you have the data you need, you're ready to create a visualization.
+
+13) How to lie with bar charts
+- your eyes just notices the end pts on the bars (and thus their difference in length)
+- can make small changes look really big; when you don't use a zero reference
+- so, you bar charts must have a zero base line
+- must see the entier bar for accurate context
+
+14) Lying with Charts
+- Save the Pies for Dessert by Stephen Few (save_the_pies_for_dessert.pdf)
+- Check our some other graph remakes and learn more about using plot.ly.
+(http://blog.plot.ly/post/103126614582/four-unclear-graphs-about-healthcare-and)
+- alternatives to pie charts: http://www.storytellingwithdata.com/2014/06/alternatives-to-pies.html
+
+15) More examples of lying with data
+- https://medium.com/i-data/misleading-with-statistics-c63780efa928
+
+16) Types of Bias
+- There are three types of bias of which you should be aware when constructing graphics: 
+- author bias
+- data bias
+- reader bias
+
+17) Author bias
+- the designers and presenters of the visualizations (knowing or unknowingly) misrepresented data through visual encodings or other design choices such as the chart type
+
+- as the designer or presenter of data visualizations, your design choices should establish trust between the reader and the graphic
+
+- your design choices should facilitate communication
+
+- otherwise, you risk the overall credibility of your message among readers
+
+18) Data bias
+
+19) Reader bias
+
+
+ 
