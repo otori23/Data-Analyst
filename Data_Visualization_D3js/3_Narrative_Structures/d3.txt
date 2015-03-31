@@ -172,3 +172,23 @@ d3.select('svg')
 - will do this line by line
 
 24) var myChart = new dimple.chart(svg, data);
+- in dimple, binds the data to the svg we want to draw the chart in
+
+- equivalent d3 statement:
+
+d3.select('svg')
+  .selectAll('circle')
+  .data(data)
+  .enter()
+  .append('circle')
+
+25) What gets returned in all the functions in the d3 data binding chain?
+- d3.select('svg'): selection with one element, the empty svg element on the page
+- .selectAll('circle'): an empty selection
+- .data(data): a selection with placehoder nodes corresponding to each row in data file
+- no dom elements are added to the page yet
+- .enter() selects all the virtual placeholder nodes that are bound to some data that is not yet shown on the page (i.e. no corresponding dom element)
+- .enter() returns a selection of javascript objects, each with a __data__ field which represents a single row of our data file
+
+
+
