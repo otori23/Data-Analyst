@@ -1,0 +1,174 @@
+1) Chart context
+- Charts should have contexts surrounding the data to display
+- clear units
+- informtive labels
+- informative title
+
+2) D3
+- will work with D3 (instead if dimple)
+- much more flexible
+- allows for interaction and animation
+- gives you better understanding of what higher level libraries are doing
+
+3) D3 - Declarative API
+
+4) What I want
+
+How do I draw a circle
+
+for 
+
+every row of my data?
+
+5) Imparative Implementation (e.g. in js)
+- explicity call out each step
+- i.e. how you want it done
+
+for (var row in data) {
+  draw("circle", row.val);
+}
+
+6) Declarative way
+
+- say what you want 
+
+d3.select('svg')
+  .selectAll('circle')
+  .data(data)
+  .enter()
+  .append('circle')
+
+7) .data
+
+- performs a data join (i.e. data bind)
+- data argument is [{}, {}, ...] 
+- i.e. created by the callback to the function that load data from (remote) file
+- each {} in data array represents a row of data ?
+
+8) Thinking with Joins
+- Mike Bostock's Thinking with Joins
+(http://bost.ocks.org/mike/join/)
+
+9) Aside
+- WAT 
+- destroy all software
+https://www.destroyallsoftware.com/talks/wat
+- they have screencasts (every other week) about advanced software topics
+
+10) Break it down
+
+- the selection before the data binding: 	    .selectAll('circle')
+- the data join: 				    .data(data)
+- the selection after the data binding:		    .enter()
+- add cirlce for every element is enter selection:  .append('circle')
+
+- understanding the join and the selections after the join will demistify d3
+
+11) Defining a join
+- Joins in SQL on wikipedia
+http://en.wikipedia.org/wiki/Join_(SQL)
+
+12) Defining a Join
+- has roots in database theory
+- union of two tables
+
+13) join example 1
+- see join_example_1.jpeg
+- match the DepartmentID column (which is common) in both tables (i.e Employee and Department tables)
+- employees -> rows in Employee table; departments -> rows in Department table
+
+14) Notes on join
+- two employees can be mapped to thesame department
+- there could be no employees for a given department
+- there could be an employee that does not have a department (i.e. DepartmentID for employee is null)
+
+15) Joins in D3
+- Three Little Circles by Mike Bostock
+(http://bost.ocks.org/mike/circles/)
+
+- Thinking with Joins by Mike Bostock
+(http://bost.ocks.org/mike/join/)
+
+- Binding Data by Scott Murray
+(http://alignedleft.com/tutorials/d3/binding-data)
+
+16) More details on joins in D3
+- similar to SQL joins
+- think of your data file (data.tsv) and the html and svg elements in index.html as the tables in the joins
+- so, data.tsv -> Employee table; index.html -> Department table
+- so, the join matches every row in data.tsv with a corresponding element in index.html based on some common key (i.e. column) that associates the rows from each table
+- in our scatterplot, we are adding circles (i.e. in index.html) based on some common key that the circle
+to a row in the data
+
+17) Question about joins
+- what happens to rows in the data.tsv that don't have a match to row in index.html (i.e. html/svg elements
+(i.e. like John in Employee table with DepartmentID of null)
+
+- what happens to rows in index.html (i.e. html/svg elements) that don't have rows in data.tsv to bind to
+(i.e. the marketing department in the Department table)
+
+18) .enter
+- the questions raised above are resloved by the special selection .enter
+- in d3 there is a concept of a key that matches data to DOM elements on a web page
+- for example element i in js data array [{}, {}, ...] maps to element i in after .selectAll selection
+- the bindings hold for the duration of the program, unless it is otherwise "deleted" somehow
+
+19) look back at code
+
+d3.select('svg')
+  .selectAll('circle')
+  .data(data)
+  .enter()
+  .append('circle')
+
+- the 1st time through our code we have an empty selection after the .selectAll('circle')
+- the data bind in .data(data) will bind rows of data.tsv to place holders for circle DOM elements
+- think of it as the data bind will create the Departments table with place holder rows
+- so, the .enter selection will select these place-holder rows
+- and, the .append will put actual circle DOM elements in the place-holder rows
+
+- if you run the code again and there are no changes to the selection or data, nothing will happen
+- reason being, since the data never changed, the key of the bound data (i.e. departmentID column) never changed
+- the .enter() selection which corresponds to all the new elements to draw on the page will be empty
+- so, we don't .append() anything new
+
+- can run the code 100 times, chart won't change if data and selections didn't change
+- this is streght of the declarative syntax
+- can build animations where only some parts of the chart change from frame to frame
+
+20) D3 joins quiz
+- d3.select("svg") - selects a container SVG element on the page
+- .selectAll("circle") - creates an empty selection to bind data
+- .data(data) - selects all bound data elements not displayed
+- .enter() - binds data to the empty selection
+- .append("circle") - creates SVG elements for the bound data
+
+21) My Interpretation of the code
+
+d3.select('svg')
+  .selectAll('circle')
+  .data(data)
+  .enter()
+  .append('circle')
+
+- select svg element, and inside of it,
+- selectAll circles, this will be empty thet 1st time it is called
+- bind data rows to previous selected circles (bind key is position)
+- there were no previously selected circles so all the data are not yet bound to anything
+- .enter means select those data rows that did not bind to DOM elements in index .html
+- .enter will return all the data rows
+- then bind the data rows returned by enter to new DOM elements
+
+22) Using Venn Diagrams to understand the special selectors (.enter, update, .exit)
+- see special_selections.jpeg
+- .enter(): selects data rows that are not bound to any html/svg elements
+- update: updates the data rows that are bound to html/svg elements
+- update is done implicity by leaving out the special selector (e.g. .enter, .exit) after the data bind
+- .exit(): html/svg elements currently on the page that are not bound to rows in data.tsv
+- .exit() is typically used to remove dom elements from the page
+
+23) From Dimple to D3
+- re-interpret chart made earlier with Dimple into D3
+- will do this line by line
+
+24) var myChart = new dimple.chart(svg, data);
