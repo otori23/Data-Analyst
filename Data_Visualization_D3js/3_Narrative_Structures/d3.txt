@@ -216,8 +216,13 @@ The book walks through creating a bar chart with animation and interaction in D3
 
 28) Dimple -> D3: Replace axis construction code
 - axis construction happens in two places, i.e. for the x and y axis
-- var x = myChart.addTimeAxis("x", "year");
-- myChart.addMeasureAxis("y", "attendance");
+
+var x = myChart.addTimeAxis("x", "year"); 
+myChart.addMeasureAxis("y", "attendance");
+x.dateParseFormat = "%Y";
+x.tickFormart = "%Y";
+x.timeInterval = 4;
+
 - needed to configure x axis more, so that is why we stored a refernce to it in a variable
 
 29) x.dateParseFormat = "%Y";
@@ -234,4 +239,9 @@ The book walks through creating a bar chart with animation and interaction in D3
 - as evidenced by teh fact that the attendance is increasing as time increases
 - there is a correlation (NOT CAUSATION)
 - data visualization helps you communicate your message
+
+31) Using extents for scales
+- need to communicate change over time
+- use finer granularity
+- replace dimple axis construction code with d3 code
 
