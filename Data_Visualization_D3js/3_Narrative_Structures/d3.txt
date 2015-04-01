@@ -171,7 +171,8 @@ d3.select('svg')
 - re-interpret chart made earlier with Dimple into D3
 - will do this line by line
 
-24) var myChart = new dimple.chart(svg, data);
+24) Dimple -> D3: Replace bind data to chart code
+- var myChart = new dimple.chart(svg, data);
 - in dimple, binds the data to the svg we want to draw the chart in
 
 - equivalent d3 statement:
@@ -183,12 +184,54 @@ d3.select('svg')
   .append('circle')
 
 25) What gets returned in all the functions in the d3 data binding chain?
+- see data_join_result.JPG
+
 - d3.select('svg'): selection with one element, the empty svg element on the page
 - .selectAll('circle'): an empty selection
 - .data(data): a selection with placehoder nodes corresponding to each row in data file
 - no dom elements are added to the page yet
 - .enter() selects all the virtual placeholder nodes that are bound to some data that is not yet shown on the page (i.e. no corresponding dom element)
 - .enter() returns a selection of javascript objects, each with a __data__ field which represents a single row of our data file
+- .append() returns a selection of svg circles that have field referencing thesame __data__ object from the .enter() selection (i.e. the svg cirlces are bound to the __data__ 
 
+26) Review
 
+.select - returns svg element
+.selectAll - return an empty selection
+.data - returns placeholder elements for the data row not bound to anything from the selectAll selection
+.enter - bind and return placeholder elements to data rows (i.e. modify place holder elements to contain __data__ fields)
+.append - transform placeholder elements into actual (viewable) svg cirlce elements with __data__ fields; return them
+
+STEP THROUGH JAVASCRPT DEBUGGER AND INSPECT WHAT IS RETURNED FROM EACH STATEMENT
+
+27) Some more reference materials
+
+- Mike Bostock's How Selections Work
+(http://bost.ocks.org/mike/selection/)
+
+- Ritchie S. King's Visual Storytelling with D3
+(http://ritchiesking.com/book/)
+
+The book walks through creating a bar chart with animation and interaction in D3. The bar chart addresses the question, "Is the world getting older?". Said another way, the question investigates whether the distribution of ages tends toward adolescence or adulthood.
+
+28) Dimple -> D3: Replace axis construction code
+- axis construction happens in two places, i.e. for the x and y axis
+- var x = myChart.addTimeAxis("x", "year");
+- myChart.addMeasureAxis("y", "attendance");
+- needed to configure x axis more, so that is why we stored a refernce to it in a variable
+
+29) x.dateParseFormat = "%Y";
+- by specifiying a parse format, as only the year, for the x axis
+- dimple automatically aggregates all the games for a given year and summued up their attendances
+- d3 won't do this aggregation automatically, but this behaviour may not be what we want anyways
+
+30) Communicating your message: for world cup data
+- take a step back and think of why you are doing what your doing
+- the reason for the visualization is to communicate a message
+- EDA is HOW you find the message in your data 
+- mistakes are ok as you iterate through you design, just backtrack and correct yourself
+- message: we are in an increasingly global (and capitalist) age
+- as evidenced by teh fact that the attendance is increasing as time increases
+- there is a correlation (NOT CAUSATION)
+- data visualization helps you communicate your message
 
