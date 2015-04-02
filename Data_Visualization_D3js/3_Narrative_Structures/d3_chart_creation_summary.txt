@@ -1,0 +1,11 @@
+Pattern for Creatin D3 Chart
+
+1) create svg dom element
+2) bind your data to the svg dom
+3) create extents from the data
+4) create scales from the extents
+5) create axes from scales
+6) make axes visible on the web page
+7) make data visible on the web page 
+(i.e. assign values to the properties of DOM elements with data bindings)
+8) can add context ie. titles, legends, etc

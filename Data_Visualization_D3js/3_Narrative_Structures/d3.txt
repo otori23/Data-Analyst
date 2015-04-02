@@ -202,7 +202,8 @@ d3.select('svg')
 .enter - bind and return placeholder elements to data rows (i.e. modify place holder elements to contain __data__ fields)
 .append - transform placeholder elements into actual (viewable) svg cirlce elements with __data__ fields; return them
 
-STEP THROUGH JAVASCRPT DEBUGGER AND INSPECT WHAT IS RETURNED FROM EACH STATEMENT
+- final result is that a data row lives as a field of an dom svg element
+- STEP THROUGH JAVASCRPT DEBUGGER AND INSPECT WHAT IS RETURNED FROM EACH STATEMENT
 
 27) Some more reference materials
 
@@ -244,4 +245,244 @@ x.timeInterval = 4;
 - need to communicate change over time
 - use finer granularity
 - replace dimple axis construction code with d3 code
+- use d3's .extent and .scale functions to convert data values into pixel values
+- 1st step = find the "extent" of each of the columns you want to visualize
+(i.e. attendance and time columns in data) 
 
+32) Extent function
+- .extent function returns a min and a max value based on you data and an accessor function
+
+var time_extent = d3.extent(data, function(d) {
+  return d['date'];
+});
+
+var count_extent = d3.extent(data, function(d) {
+  return d['attendance'];
+});
+
+33) Scale function
+- now use scale function to map time and attendance values to pixel values
+
+var time_scale = d3.time.scale()
+  .range([margin, width])
+  .domain(time_extent);
+
+var count_sclae = d3.scale.linear()
+  .range([height, margin])
+  .domain(count_extent);
+
+- notice the special scale used for time
+
+34) Parsing Data Before the Draw Function
+- Remember the date column is represented as a string
+- d3 needs to compare the dates to find the extents; but string comparison is different from date comparison
+- Need to transform the date strings to date objects before the draw callback is executed
+
+d3.tsv("world_cup_geo.tsv", /* specify date transform */, draw);
+
+- can use d3 date/time formatters - d3.time.format or create native js data/time objects 
+(https://github.com/mbostock/d3/wiki/Time-Formatting)
+- can do transformation inline, i.e. use the delegate of the extent function
+- or do the transform as the data is loaded
+
+d3.tsv("world_cup_geo.tsv", function(d) {
+  // transform data
+}, draw);
+
+- here d represents a single row in the data file
+- the data returned from this function is what gets passed to the call back (i.e. [{}, {}, ...])
+
+35) Understand the d3.tsv transformation function
+- say we had:
+
+d3.tsv("world_cup_geo.tsv", function(d) {
+  // transform data
+  return {
+    "i_love": "data_visualization"
+  };
+}, draw);
+
+- this transforms ever row of our data to the js object: {"i_love": "data_visualization"}
+- so, data passed to draw function looks like,
+- data = [{"i_love": "data_visualization"}, {"i_love": "data_visualization"}, ...]
+
+36) D3 Parsing Dates and Times
+
+// example datae: 27-05-1934 (16:00 h)
+// %blah -> SDRS time variables???
+format = d3.time.format("%d-%m-%Y (%H:%M h");
+
+d3.tsv("world_cup_geo.tsv", function(d) {
+  // transform data
+  d['date'] = format.parse(date['date']);
+  d['attendance'] = +d['attendance'];
+  return d;
+}, draw);
+
+- note we also coerce the attendance string into a number
+- note, the format string used to create the format object, tells d3 how our date string is formatted
+- that way when d3 ecounters a date string, it knows how to parse it into a date/time object
+- kinda like regex matching (format is a regex pattern object)
+
+37) Parsing attendance
+- "unary" or "unary plus" operator
+- convert string to integer
+- the negative unary operator (-) transforms a string representing an integer into a negative integer.
+
+var num = "three";
++num;
+// returns NaN
+
+- notice that when the unary operator (+) is used on strings containing alphabetic characters, 
+the return value is NaN.
+
+38) Creating Axes
+- hard part is creating the proper scales for you axes
+
+var time_axis = d3.svg.axis()
+  .scale(time_scale)
+  .ticks(d3.time.years, 2);
+
+var count_axis = d3.svg.axis()
+  .scale(count_scale)
+  .orient('left');
+
+- not customized ticks of time-axis to be every 2 years (could specify days, etc)
+
+39) Now, place axis object on the svg canvas
+- the code below gives the axes objects a visual representtion on the screen
+- i.e. encodes information into svg elements that the webpage can then display
+ 
+d3.select('svg')
+  .append('g')
+  .attr('class', 'x axis')
+  .attr('transform', 'translate(0,' + height + ')')
+  .call(time_axis);
+
+d3.select('svg')
+  .append('g')
+  .attr('class', 'y axis')
+  .attr('transform', 'translate(0,' + margin + ',0)')
+  .call(count_axis);
+
+40) .call()
+- the D3 call() method allows you to pass a D3 selection to a function, 
+- facilitating the function chaining syntax of the rest of the library. 
+- in our case it allows us to pass the g selection to the axis function.
+(https://github.com/mbostock/d3/wiki/Selections#call)
+
+- For more information on the call() function for axes, 
+- read the section Calling the D3.js Axis Function on Dashing D3.
+(https://www.dashingd3js.com/d3js-axes)
+
+41) Draw circles on the page
+- last step in converting dimple chart -> native d3 chart
+- the svg circles are actually already on the page and have data bound to them
+- they were appended in the 1st step; i.e. the data binding step
+- you don't see them on the webpage because their properies are not defined, i.e. position, radius, fill
+- the code below will make them visible
+
+d3.selectAll('circle')
+  .attr('cx', function(d) {
+    return time_scale(d['date']);
+  })
+  .attr('cy', function(d) {
+    return count_scale(d['attendance']);
+  })
+  .attr('r', radius)
+  .attr('fill', color);
+
+- d is the data bound to this circle, i.e. the thing referenced by the __data__ property of 
+object representing this circle svg dom element.
+
+- can change opacity to see overlapping things
+
+43) Pre-attentive processing to highlight home team attendance
+
+- add d3 code to:
+- make games with the home country a red circle
+- leave all other countries as blue cirlces
+- increase the radius of any games for home countries to a radius of 5
+
+- the code to draw/show the circle on the page becomes
+d3.selectAll('circle')
+  .attr('cx', function(d) {
+    return time_scale(d['date']);
+  })
+  .attr('cy', function(d) {
+    return count_scale(d['attendance']);
+  })
+  .attr('r', function(d) {
+    if(d['home'] === d['team1'] || d['home'] === d['team2']) {
+      return radius * multiplier;
+    }
+    else {
+      return radius;
+    }
+  })  
+  .attr('fill', function(d) {
+    if(d['home'] === d['team1'] || d['home'] === d['team2']) {
+      return 'red';
+    }
+    else {
+      return 'blue';
+    }
+  });
+
+44) Add Legend for context
+
+var legend = svg.append('g')
+  .attr('class', 'legend')
+  .attr('transform', 'translate(' + (width - 100) + ',' + 20 + ')')
+  .selectAll('g')
+  .data(['Home Team', 'Others']) // data can be in memory object
+  .enter.append('g');
+
+- at this point legend is a selection containing two <g> elements
+- need to add text and circles to for each <g> element in the legend selection
+
+45) Add circle and text to the legend
+
+legend.append('circle')
+  .attr('cy', function(d, i) {
+
+  })
+  .attr('r', function(d) {
+    if (d == 'Home Team') {
+      return raduis * multiplier;
+    }
+    else {
+      return radius;
+    }
+  })
+  .attr('fill', function(d) {
+    if (d == 'Home Team') {
+      return 'red';
+    }
+    else {
+      return 'blue';
+    }
+  });
+
+legend.append('text')
+  .attr('y', function(d, i) {
+    return i * 30 + 5;
+  })
+  .attr('x', radius * 5)
+  .text(function(d) {
+    return d;
+  });
+
+- note that some delegates take two arguments
+- d: data row, i: index of data row
+
+46) Algining Text
+- the x and y properties of text elements define where to start drawing the bottom left of the text.
+
+- a more flexible way to center text is to use the text-anchor and the alignment-baseline properties of the text element.
+
+47) World cup Graphic Summary
+- static
+- author driven
+- beware of biases: data, author, user bias
+- consider how the user will interpret/interact with the data
