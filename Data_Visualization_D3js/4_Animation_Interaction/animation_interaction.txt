@@ -1,0 +1,126 @@
+1) Plan
+- use geographic features to create a map in d3
+
+2) Example interactive graphic
+- Scott Murray's example of an interactive graphic that tells a really compelling story
+- By amanda fox, shan carter, kevin quealy, from the New York times
+- http://www.nytimes.com/interactive/2009/11/06/business/economy/unemployment-lines.html
+
+3) The Benefits of Interactivity
+- allows user to understand the data better
+- Remember Gapminder World (Income per person vs life expectancy)
+- Recreated on plot.ly
+- https://plot.ly/~cimar/211/life-expectancy-v-per-capita-gdp-2007/
+- can scale axes, zoom in/out, tool tips for each country, embed live links (e.g. to data source, code, etc)
+
+4) Iterative Process
+- work more on the world cup graphic
+- so far, started with line plot,
+- then scatter plot
+- we want to add some enhancements: geographic, animation, interaction
+- want to implement a particular story type: martini glass, drill down (explore data in a finer grain)
+
+5) Let's make a map
+- map school: http://www.macwright.org/mapschool/
+- lingua franca: a bridge language used to communicate when people do not share the same native language
+- d3 has great geo capabilities
+
+6) Map data
+- formats: shapefile, GeoJSON, TopoJSON
+
+7) shapefile
+- proprietary
+- binary
+- need special software
+- storage limitations, i.e. file can be only so big; affects resolution
+
+8) GeoJSON
+- open
+- valid JSON
+- human readable
+- easy to explore and debug using common dev tools
+- disadvantage: more verbose and substantially larger than binary shapefile
+
+9) TopoJSON
+- extension to GeoJSON
+- smaller than GeoJSON and shapefile in file size
+- additionally encodes topology (shapefiles and geojson don't)
+- Don't use topological information in the class -> so stick with geojson
+
+10) What is a projection
+- similar to chart creation
+- define a way to convert data domain -> pixel range
+- for chart we did: years(date) and attendance(floats) -> pixels (x, y)
+- for map we want: geographic coordinates (longitude, latitude) -> pixels (x, y)
+
+- for chart used a scale to the do transformation
+- for map will use a projection (more specifically a mercator projection) for the transformation
+
+11) What is a projection, again
+- 3 dimensions => projection => 2 dimensions
+- flatten a 3d cut out on a 2d surface
+- there is never a perfect way to represent something of a higher dimension in a lower dimensional space
+without some lose of information or distortion
+
+- just need to decide where we can afford to have the information lose while retaining the important information
+- most people live around the equator; not many people live at the north/south poles
+- mercator projection distorts information about poles while retaining information about equator
+- mercator projection represents the earth (3d) as a rectangle (2d)
+
+12) Mercator projection
+- The mercator projection distorts area asymmetrically, and the distortion increases towards the ends of lines of longitude
+
+- The mercator projection preserves area along lines of latitude
+
+- The mercator projection is appropriate for our visualization because countries toward the middle of the map host and participate in the World cup
+ 
+
+13) Map tutorial
+- http://mapschool.io/
+- provides a great introduction to many of the components of a map 
+- (topology, geocoding, projections, etc.)
+- If you plan to make visualizations with maps, you should continue to research map projections to understand the tradeoffs in different projections.
+
+
+14) D3 map code
+- see ../2b_Dimple_js/lesson4/01_globe.html for js code
+- ../2b_Dimple_js/lesson4/world_countries.json: geojson file containing outline of all countries
+- can find geojson files for common geographic regions on the web
+- if you can't find a geojson file you want; there are utilities that convert shapefiles -> geojson files
+
+- Ogre: convert spatial files to GeoJSON
+(http://ogre.adc4gis.com/)
+
+- How to Convert Shape Files to GeoJSON for use on Github by Ben Balter
+(http://ben.balter.com/2013/06/26/how-to-convert-shapefiles-to-geojson-for-use-on-github/)
+
+- If you want to get a feel for how GeoJSON values translate into a visual representation, geojson.io is an interactive GeoJSON editor. 
+(http://geojson.io/#map=2/20.0/0.0)
+
+15) Inspect GeoJSON
+- inspect json data passed to the callback of d3's data loading function (i.e. d3.json(...))
+- what makes geojson unique is its shape extensions
+- geo_data.features.Object.geometry - array of (long, lat) pairs that define a polygon
+
+16) Drawing a Map from SVG Paths
+- draw() - callback for d3 data loading function
+- set up projection in draw function
+- projection is anaolgous to scales for a chart
+
+- scale (in: data, out (x, y) of pixel; projection (in: (long, lat), out: (x, y) of pixel)
+var projection = d3.geo.mercator();
+
+- now create svg elements (paths) to will eventually be used to visualize the map
+var path = d3.geo.path().projection(projection); // like svg cirlce for charts
+
+- bind data to svg path elements (using same pattern as for charts)
+var map = svg.selectAll('path')  // on 1st time, empty selection; no path elements in svg canvas
+	     .data(geo_data.features) // return selection of all elements (all placeholders now) bound to map data
+             .enter() // select only the place holder elements
+	     .append('path') // replace palce holders with actual svg path elements
+	     .attr('d', path);  // set attribute of newly added path element
+
+- 'd' attribute is data of the path - which pixels to color
+- path elements are flexible and can represent almost any shape
+
+  
