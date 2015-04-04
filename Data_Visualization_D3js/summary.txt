@@ -1,0 +1,9 @@
+1) Graphic Design Principles
+
+2) When you encounter a visualization ask yourself:
+
+- how do I classify this visualization (i.e. what type of chart/map/whatever is it?)
+- what are the visual encodings ?
+- what is the narrative structure ?
+- what visual elements are helping you interpret the graphic ?
+- how can i improve/iterate on the visualization ?
