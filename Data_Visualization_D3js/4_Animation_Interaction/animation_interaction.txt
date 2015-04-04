@@ -118,9 +118,489 @@ var map = svg.selectAll('path')  // on 1st time, empty selection; no path elemen
 	     .data(geo_data.features) // return selection of all elements (all placeholders now) bound to map data
              .enter() // select only the place holder elements
 	     .append('path') // replace palce holders with actual svg path elements
-	     .attr('d', path);  // set attribute of newly added path element
+	     .attr('d', path);  // set attribute of newly added path element; 
+				// path argument is a delegate that returns a valuefor the attribute 
 
 - 'd' attribute is data of the path - which pixels to color
 - path elements are flexible and can represent almost any shape
 
-  
+17) How does d3 know which country to draw?
+- the path variable is actually a functon that gets passed the data that is bound to each element in the selection.
+
+- path is a delegate that gets passed the data bound to each svg path element
+
+- for example if you set a breakpoint in the code at the point right after the path object is created...
+
+- then run: path(geo_data.features[0])
+
+- this returns a string in a format that represents the svg way to specify which path to draw and 
+which pixels to connect on the screen
+
+18) Altering the map
+- move and manipulate the visual display map
+
+- to scale and translate the map, apply a scale and translate transform on the projection
+var projection = d3.geo.mercator()
+		       .scale(170)			    // like zooming in/out
+		       .translate([width / 2, height / 2]); // move center of map 
+
+19) Change styles on map
+
+- note the last 3 function calls to style()
+
+var map = svg.selectAll('path')
+	     .data(geo_data.features) 
+             .enter()
+	     .append('path')
+	     .attr('d', path)
+	     .style('fill', 'rgb(9,157,217)')
+	     .style('stroke', 'black') 
+     	     .style('stroke-width', 0.5);
+
+20) Thematic maps
+- maps with data representing a theme
+- in this case plot cirlce on map to indicate host coutries
+- common types of thematic maps
+-- dot maps: dots (potentially of different colors) on a map; leverage negative space
+-- choropleth: color areas on maps depending on the data they represent
+-- cartogram: distorts areas shapes and sizes depending on some data value
+-- graduated symbol: symbol (circles) with variable radiuses - as per data value
+
+21) Add attendance data to map
+- add cirlces representing attendance data to map
+- load attendance data: this is done in callback that draws svg map
+- attendance data: world_cup_geo.txt; map data: world_countries.json (i.e. geojson file)
+
+function plot_points(data) {
+  //draw circles logic
+};
+
+var format = d3.time.format("%d-%m-%Y (%H:%M h)");
+
+d3.tsv("world_cup_geo.tsv", function(d) {
+    d['attendance'] = +d['attendance'];
+    d['date'] = format.parse(d['date']);
+    return d;
+  }, plot_points);
+
+22) D3 nest function
+- d3 nest function
+(https://github.com/mbostock/d3/wiki/Arrays#-nest)
+
+- d3 nest function examples
+(http://bl.ocks.org/phoebebright/raw/3176159/)
+
+23) Grouping attendance data
+- need to group attendance data by the year
+- d3.nest() wll group our data, and perform some aggregation
+
+24) Let's try to understand the nesting pipeline
+
+var nested = d3.nest()
+               .key(function(d) { // d represents a row of our data
+                 // grouping data happens here
+		 // return the 'key' or data value you want to group by
+		 // in this case the year the world cup is held
+               })
+               .rollup(function(leaves) { // leaves represents a group; array of rows in a group
+                 // aggregation happens here (i.e. add up attendances in a group)
+		 // return statistics for group (i.e. aggregate values describing groups) 
+		 // -- summed up attendance, longitude, and latitude 
+		 // -- long, lat, tells you where to draw the cirlce on the map
+               })
+               .entries(data); // inject data into nesting pipeline
+
+25) Details of nesting code
+
+var nested = d3.nest()
+               .key(function(d) {
+                 return d['date'].getUTCFullYear();
+               })
+               .rollup(function(leaves) {               
+                 var total = d3.sum(leaves, function(d) {
+                   return d['attendance'];
+                 });
+
+                 var coords = leaves.map(function(d) {
+                   return projection([+d.long, +d.lat]);
+                 });
+
+                 var center_x = d3.mean(coords, function(d) {
+                   return d[0];
+                 });
+
+                 var center_y = d3.mean(coords, function(d) {
+                   return d[1];
+                 });
+
+                 return {
+                   'attendance' : total,
+                   'x' : center_x,
+                   'y' : center_y
+                 };
+               })
+               .entries(data);
+
+26) Ouput of aggregation
+- an array of objects, where each object represents a single world cup year
+- [{}, {}, ....]
+- object is {
+		"key": 1930,
+		"value": {
+			   "attendance": 1000,
+			   "x": 140,
+			   "y": 215
+			 }
+	     } 
+
+27) Adding circles
+
+var attendance_max = d3.max(nested, function(d) {
+    return d.values['attendance'];
+});
+
+var radius = d3.scale.sqrt()
+               .domain([0, attendance_max])
+               .range([0, 15]);
+
+svg.append('g')
+  .attr("class", "bubble")
+  .selectAll("circle")
+  .data(nested)
+  .enter()
+  .append("circle")
+  .attr('cx', function(d) { return d.values['x']; })
+  .attr('cy', function(d) { return d.values['y']; })
+  .attr('r', function(d) {
+    return radius(d.values['attendance']);
+  });
+
+- note we are binding the svg circles to the aggreate data (nested variable)
+
+28) Sorting the Data for Drawing Order
+- sort data in nested in decsending order
+- so that bigger cirlces get drawn first
+- smaller cirlces will be on top of bigger cirlces in case of an overlap
+- use opacity attribute of circles
+
+
+29) See file story_after_static_map.jpeg
+- next step is to add animation
+
+30) Animation
+- we need two things
+- 1st, a function to update map
+- 2nd, a way to cycle through all the years 
+
+31) Outlining the Update Function
+- filter data 		// use d3 .filter function to select year of interest
+- remove any elements	// use d3 .exit function to remove map elements that no longer belong
+- add any new elements	// use d3 .enter to add elements to map that were not already there
+- only show countries participating in world cup for the given year
+
+32) Collecting Participating Countries
+- Documentation about sets in D3 
+(https://github.com/mbostock/d3/wiki/Arrays#sets)
+
+- create an empty set
+var teams = d3.set()
+
+- purpose of set is to dedup a list
+
+- turn set into an array
+team.values()
+
+33) Filtering
+- selection.filter(function(d) { ... })
+
+- returns a selection containing data that returns 'true' in the delegate
+
+34) Data Join with a Key Function
+
+svg.append('g')
+   .attr("class", "bubble")
+   .selectAll("circle")
+   .data(nested.sort(function(a, b){ 
+     return b.values['attendance'] - a.values['attendance'];
+   }), function(d) {
+       return d['key'];
+   })
+   .enter()
+   .append("circle")
+   ...
+
+- note how the data bind happens
+- .data takes two delegates as arguments 
+- 1st delegate is like before, i.e., the data to bind 
+- 2nd delegate further process selections from the 1st delegate to refine the data to bind
+
+
+
+35) Understand the Join with a key function
+- think of sql join of two tables, 
+- you need to specify a column to use as a key for the join
+- i.e. a column that is common to both tables involved in the join
+- the key function, i.e. 2nd argument to .data() is like the key column of sql join
+- the values the key functions produces are like values in the key column on sql join
+- so now with a key function html/svg elements are bound to a data rows based in a shared proerty value in both
+
+
+
+
+36) Why are we using a key function in our case
+- till now the key used fot .data() 'join' was position in collection
+- ok, for static charts/maps as the 'rows' of the two tables in the join stay in thesame position
+- however, when things get dynamic - we are periodically sorting the html/svg elements 
+- so, that smaller circles get drawn on top of larger circles
+- each time the .data() is called, we need to bind html/svg elements to the proper js data object,
+- even though their positions in their respective collections might have changed
+- using a key function rather than the position of the rows, ensures successful binding
+
+
+
+
+37) Enter Update Exit
+- think in terms of when a join of two tables doesn't work out so well 
+- .enter() selection: give me placeholders for existing data that should be on page
+- .exit() selection: give me current svg/html elements on page that have no data
+
+- so, on update we remove cirlces that should not be there, then add circles that should
+
+var circles = svg.selectAll('circle')
+		 .data(filtered, key_func);
+
+circles.exit().remove();
+
+circles.enter()
+       .append('circle')
+       ...
+
+38) Last piece of update function
+- highlight countries that participated in given world cup year; and hide the others
+- accomplish this by changing fill and stroke of countries accordingly
+- use negative space to 'erase' countries that didn't participate; fill them white
+
+var countries = filtered[0].values['teams'];
+
+function update_countries(d) {
+  if(countries.indexOf(d.properties.name) !== -1) {
+    return "lightBlue";
+  } else {
+    return 'white';
+  }
+}
+
+svg.selectAll('path')
+   .style('fill', update_countries)
+   .style('stroke', update_countries);
+
+39) Animate the update function
+- i.e. call it repeatedly
+
+- creating Animations and Transitions with D3.js by Jerome Cukier
+(http://www.jeromecukier.net/blog/2012/07/16/animations-and-transitions/)
+
+- learning D3: Part 3 Animation and Interaction by Scott Becker
+(http://synthesis.sbecker.net/articles/2012/07/10/learning-d3-part-3-animation-interaction)
+
+- d3 and UI Animations by Andreas Koller
+(http://blog.andreaskoller.com/2014/02/d3-and-ui-animations/)
+
+40) Animation / Transformation / Transition
+- transform: mutate state of svg element
+- transition: apply a series of Transforms over time
+- transition: transform(t)
+- amimation = transition
+
+41) setTimeout / setInterval / clearInterval
+- setTimeout: native js; will run a specified function after a specified number of milliseconds
+- setInterval: like setTimeout, but will run function repeatedly
+- clearInterval: will stop previous setInterval
+- will use setTinerval to do the animation
+- there are better ways to do the animation
+
+- see links above
+
+42) The animation code
+
+var years = [];
+
+for(var i = 1930; i < 2015; i += 4) {
+  if(i !== 1942 && i !== 1946) {
+    years.push(i);
+  };
+}
+
+var year_idx = 0;
+
+var year_interval = setInterval(function() {
+  update(years[year_idx]);
+
+  year_idx++;
+
+  if(year_idx >= years.length) {
+    clearInterval(year_interval);
+  }
+}, 1000);
+
+
+43) Dynamic title
+- can dynamically change title of graphic to inclde year of world cup
+- in update function add:
+
+d3.select('h2')
+  .text('World Cup' + year);
+
+44) D3's built in animation/transition functions
+- use d2 built in animation and transition functions for smoother transitions
+- looks like it is used in conjuction with update
+- inside update( ) add the following for cirlces and maps
+
+// adding new cirlces
+circles.enter()
+       .append('circle')
+       .transition()
+       .duration(500)
+       .attr(...)
+       .attr(...)
+
+// showing participating countries
+svg.selectAll('path')
+   .transition()
+   .duration(500)
+   .style( ... )
+   .style( ... )
+
+- the transition and duration apply to the functions that come after i.e. .attr() or .style()
+- this is one advantage of using inline style instead of css (i.e. can animate in-line)
+
+45) Moving on to user-driven portion of code
+- We are now done with the author-driven part of the narrative
+- Let's move to the user-driven part
+
+46) Buttons for years
+- code to add buttons along left hand side of page
+
+js: run after animation is done (i.e under clearInterval)
+var buttons = d3.select("body")
+                        .append("div")
+                        .attr("class", "years_buttons")
+                        .selectAll("div")
+                        .data(years)
+                        .enter()
+                        .append("div")
+                        .text(function(d) {
+                            return d;
+                        }); 
+
+html:
+<div class="years_buttons">    
+  <div>1930</div>
+  <div>1934</div>
+  ...
+  <div>2014</div>
+</div>
+
+css:
+
+div.years_buttons {
+    position: fixed;
+    top: 5px;
+    left: 50px;
+} 
+
+div.years_buttons div {
+    background-color: rgb(251, 201, 127);
+    padding: 3px;
+    margin: 7px;
+}
+
+47) Define event handler for buttons
+
+buttons.on("click", function(d) {
+  d3.select(this)
+    .transition()
+    .duration(500)
+    .style("background", "lightBlue")
+    .style("color", "white");
+  update(d);
+});
+
+- buttons is a d3 object representing a selection
+- so, the d passed into the event handler is the data bound to the html/svg selection
+
+48) Javascript 'this'
+
+- Understand JavaScript's this with Clarity and Master It
+(http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/)
+
+- If you need a quick reference, the Some of This blog post provides a concise explanation.
+(http://tomhicks.github.io/code/2014/08/11/some-of-this.html)
+
+- For a deeper dive into the JavaScript keyword this, work through the Object-Oriented JavaScript lesson on the keyword this!
+(https://www.udacity.com/course/viewer#!/c-ud015/l-2593668699/m-2780408563)
+
+49) Javascript Events
+
+- D3.js Mouse Events By Anthony Nosek
+(http://www.stator-afm.com/tutorial/d3-js-mouse-events/)
+
+- Mouseover, Mouseout, and Mousedown Tutorial by Christophe Viau
+(http://christopheviau.com/d3_tutorial/)
+
+- Adding Tooltips to D3.js Graph
+(http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html)
+
+50)  World Cup Code and Narrative Recap
+- static map
+
+- bubble (thematic map)
+
+- author driven narrative (animations)
+  -- early tournaments participants localized
+  -- mainly hosted in South America and Europe
+
+- reader driven narrative (interaction)
+  -- user can find thier own story
+
+51)  Start Creating
+- Really, start creating your own stuff
+
+- Mike Bostock covers an example of a similar map in his Let's Make a Bubble Map tutorial.
+(http://bost.ocks.org/mike/bubble-map/)
+
+52) D3 Resources
+
+- Let's Make a Map by Mike Bostock
+(http://bost.ocks.org/mike/map/)
+
+- Let's Make a Bubble Map by Mike Bostock
+(http://bost.ocks.org/mike/bubble-map/)
+
+- Small Multiple Maps using D3 (Think Lattice plot)
+(http://blog.webkid.io/multiple-maps-d3/)
+
+- A Simple D3.js Map Explained
+(http://www.d3noob.org/2013/03/a-simple-d3js-map-explained.html)
+
+- How to Make Choropleth Maps in D3 by EJ Fox
+(http://blog.visual.ly/how-to-make-choropleth-maps-in-d3/)
+
+53) Additional Resources
+
+- Maps Package in R Documentation
+(http://cran.r-project.org/web/packages/maps/maps.pdf)
+
+- Basemap in Python
+(https://pypi.python.org/pypi/basemap/1.0.7)
+
+@2:13 Matt mentions GUIs for making maps. A Graphical User Interface or GUI is a point-and-click software. It's an alternative to working in command line interfaces. Tableau and Data Wrapper are the GUIs that Matt mentions.
+
+- Tableau
+(http://www.tableau.com/)
+
+- Data Wrapper
+(https://datawrapper.de/)
+
+- Mike Bostock's many many Examples.
+(http://bost.ocks.org/mike/example/)
